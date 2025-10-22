@@ -87,6 +87,29 @@ make format
 # Clean artifacts
 make clean
 ```
+## Team & Responsibilities
+
+| Member | Role | Tasks (33% each) |
+|--------|------|------------------|
+| **Shashank** | Data Pipeline & ML Foundation | Environment setup, data acquisition (796M rows), HDFS/storage layout, schema validation, feature engineering, ML baseline model, GitHub repo structure, ingestion metrics |
+| **Anshi** | Batch Processing & Analytics | Spark batch jobs, complex transformations (joins, aggregations), analytics queries at scale, performance optimization, timing comparisons, parameterized configs, unit tests, Makefile targets |
+| **Ronit** | Streaming & Production | Kafka → Spark Structured Streaming pipeline, real-time simulation, streaming transformations, visual dashboard (Plotly/Streamlit), integration tests, CI/CD (GitHub Actions), architecture diagram, final presentation |
+
+### Success Metrics
+- ✓ Data scale: 796M rows (EPA 400M + NOAA 396M)
+- ✓ Storage: Partitioned Parquet with 70% compression
+- ⏳ Performance: Baseline vs optimized timing comparisons
+- ⏳ ML Model: Baseline accuracy with training/inference metrics
+- ⏳ Streaming: Real-time processing latency < 5 seconds
+- ⏳ Reproducibility: One-command execution via Makefile
+- ⏳ Code Quality: Unit tests, CI/CD passing, documentation
+
+### Handoff Dependencies
+```
+SHASHANK (Data Pipeline) → ANSHI (Batch Processing) → RONIT (Streaming & Production)
+     ↓                           ↓                              ↓
+  Raw data in HDFS      Processed Parquet files      Final dashboard + CI/CD
+```
 
 ## License
 
