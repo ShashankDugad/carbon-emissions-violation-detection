@@ -59,12 +59,6 @@ carbon-emissions-violation-detection/
 └── requirements.txt      # Dependencies
 ```
 
-## Data Sources
-
-- **EPA AQS**: 400M rows, 5 pollutants (PM2.5, SO2, CO, NO2, O3), 2015-2024
-  - Source: https://aqs.epa.gov/aqsweb/airdata/
-- **NOAA LCD**: 396M rows, 2,953 weather stations, 2015-2024
-  - Source: https://www.ncei.noaa.gov/data/local-climatological-data/
 
 ## Requirements
 
