@@ -137,3 +137,26 @@ git-push:
 	@echo "✓ Pushed to GitHub"
 
 commit-push: git-add git-commit git-push
+
+# OpenAQ-specific commands
+download-openaq-sample:
+	@echo "Downloading OpenAQ sample (10 locations, 1 year)..."
+	bash scripts/download_openaq_sample.sh
+	@echo "✓ OpenAQ sample downloaded to data/sample/"
+
+download-openaq-full:
+	@echo "WARNING: This will download 1,178 locations × 5 years = ~21GB compressed"
+	@read -p "Continue? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
+	bash scripts/download_openaq_full.sh
+	@echo "✓ OpenAQ data downloaded to data/raw/"
+
+validate-openaq:
+	@echo "Validating OpenAQ data structure..."
+	$(PYTHON) src/preprocessing/validate_openaq_schema.py
+	@echo "✓ OpenAQ validation complete"
+
+# Update existing download-sample target
+download-sample: download-openaq-sample
+
+# Update help
+.PHONY: download-openaq-sample download-openaq-full validate-openaq
