@@ -19,3 +19,12 @@ cd carbon-emissions-violation-detection
 
 ## Status
 Project setup in progress.
+
+---
+
+## DataProc Work (2025-10-27)
+
+**Platform:** NYU DataProc (HDFS + Spark)  
+**Data:** EPA AQS 119M rows → HDFS  
+**Location:** `/user/sd5957_nyu_edu/carbon_emissions/raw_data/`  
+**Status:** 60% to 200M target. Need NOAA next.
