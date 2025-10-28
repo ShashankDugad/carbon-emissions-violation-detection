@@ -3,8 +3,8 @@
 Real-time prediction of air quality violations using 286M EPA records (2015-2024) on Apache Spark.
 
 ## Dataset
-- **Rows:** 286,315,111 (43% over 200M target)
-- **Size:** 51.4 GB raw CSV, ~15 GB Parquet (estimated)
+- **Rows:** 289,283,534 (44.6% over 200M target)
+- **Size:** 51.7 GB raw CSV, ~15 GB Parquet (estimated)
 - **Years:** 2015-2024 (10 years)
 - **Pollutants:** Ozone (44201), PM2.5 (88101), SO2 (42401), CO (42101), NO2 (42602)
 - **Platform:** NYU DataProc (HDFS + Spark 3.5)
