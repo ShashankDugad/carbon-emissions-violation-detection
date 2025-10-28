@@ -1,30 +1,33 @@
 # Carbon Emissions Violation Detection
 
-Big Data project using Apache Spark for emissions anomaly detection.
-
-## Team
-- Shashank Dugad (sd5957) - Data Pipeline & ML
-- Anshi Shah (ans10020) - Batch Processing
-- Ronit Gehani (rg4881) - Streaming & Production
+Real-time prediction of air quality violations using 286M EPA records (2015-2024) on Apache Spark.
 
 ## Dataset
-TBD - Selecting optimal data source
-
-## Setup
-```bash
-# Clone repo
-git clone git@github.com:ShashankDugad/carbon-emissions-violation-detection.git
-cd carbon-emissions-violation-detection
-```
+- **Rows:** 286,315,111 (43% over 200M target)
+- **Size:** 51.4 GB raw CSV, ~15 GB Parquet (estimated)
+- **Years:** 2015-2024 (10 years)
+- **Pollutants:** Ozone (44201), PM2.5 (88101), SO2 (42401), CO (42101), NO2 (42602)
+- **Platform:** NYU DataProc (HDFS + Spark 3.5)
 
 ## Status
-Project setup in progress.
+✓ Data ingestion complete  
+→ Next: Spark preprocessing, partitioning, baseline job
 
----
+## Team
+- Shashank Dugad (sd5957) - Pipeline & ML
+- Anshi Shah (ans10020) - Batch Processing  
+- Ronit Gehani (rg4881) - Streaming
 
-## DataProc Work (2025-10-27)
-
-**Platform:** NYU DataProc (HDFS + Spark)  
-**Data:** EPA AQS 119M rows → HDFS  
-**Location:** `/user/sd5957_nyu_edu/carbon_emissions/raw_data/`  
-**Status:** 60% to 200M target. Need NOAA next.
+## Repository
+```
+carbon-emissions-violation-detection/
+├── scripts/
+│   ├── download_epa.py
+│   ├── download_epa_additional.py
+│   ├── download_epa_2015-2017.py
+│   └── download_openaq_*.py
+├── logs/
+│   ├── session_2025-10-27.md
+│   └── session_2025-10-28.md
+└── README.md
+```
