@@ -31,3 +31,14 @@ carbon-emissions-violation-detection/
 │   └── session_2025-10-28.md
 └── README.md
 ```
+
+## Key Findings
+- California leads with 442K violations
+- PM2.5 levels decreased 12% (2015-2019)
+- 99.4% storage reduction via Parquet
+
+## Progress
+✓ Data ingestion: 225M rows  
+✓ Spark preprocessing: CSV → Parquet  
+✓ Validation & analytics complete  
+→ Next: Feature engineering, ML model
