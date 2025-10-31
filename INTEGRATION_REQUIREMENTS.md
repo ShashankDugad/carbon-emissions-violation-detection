@@ -3,8 +3,9 @@
 ## For Anshi Shah (ans10020) - Batch Processing
 
 ### Input Data
-- **Source:** `hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/epa_parquet/`
+- **Source:** `hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/epa_parquet + openaq_parquet/`
 - **Rows:** 222M EPA records (2015-2024)
+- **OpenAQ:** `hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/openaq_parquet/` (3M records)
 - **Schema:** 25 columns including State, County, PM2.5, Ozone, Date
 
 ### Required Deliverables

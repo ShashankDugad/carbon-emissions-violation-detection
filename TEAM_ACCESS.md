@@ -10,6 +10,9 @@ epa = spark.read.parquet("hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed
 ```
 
 ### OpenAQ Data (3M rows, 8 MB)
+- **Years:** 2023
+- **Locations:** 250 monitoring stations
+- **Use cases:** Cross-validation, international comparisons, data quality checks
 ```python
 openaq = spark.read.parquet("hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/openaq_parquet")
 ```
