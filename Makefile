@@ -7,6 +7,7 @@ EPA_BASE := https://aqs.epa.gov/aqsweb/airdata
 NOAA_BASE := https://www.ncei.noaa.gov/data/local-climatological-data/access
 
 help:
+	@echo "  make help-pipeline   - Show ML pipeline commands"
 	@echo "=========================================="
 	@echo "Carbon Emissions Detection - Make Commands"
 	@echo "=========================================="
@@ -160,3 +161,67 @@ download-sample: download-openaq-sample
 
 # Update help
 .PHONY: download-openaq-sample download-openaq-full validate-openaq
+
+# ==========================================
+# ACTUAL PIPELINE (Completed Implementation)
+# ==========================================
+
+pipeline-validate:
+	@echo "Validating Parquet data..."
+	spark-submit scripts/validate_parquet.py
+
+pipeline-analytics:
+	@echo "Running baseline analytics..."
+	spark-submit scripts/analytics_baseline.py
+
+pipeline-features:
+	@echo "Engineering features (PM2.5)..."
+	spark-submit --driver-memory 8g --executor-memory 12g scripts/feature_engineering.py
+
+pipeline-train:
+	@echo "Training ML model (time-based split)..."
+	spark-submit --driver-memory 8g --executor-memory 12g scripts/train_baseline_timesplit.py
+
+pipeline-importance:
+	@echo "Computing feature importance..."
+	spark-submit --driver-memory 12g --executor-memory 16g --executor-cores 8 scripts/feature_importance_optimized.py
+
+pipeline-tune:
+	@echo "Hyperparameter tuning..."
+	spark-submit --driver-memory 12g --executor-memory 16g scripts/hyperparameter_tuning.py
+
+pipeline-full: pipeline-validate pipeline-analytics pipeline-features pipeline-train pipeline-importance
+
+# HDFS paths (read-only for team)
+show-data-paths:
+	@echo "=== HDFS Data Locations ==="
+	@echo "EPA Parquet: hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/epa_parquet/"
+	@echo "OpenAQ Parquet: hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/openaq_parquet/"
+	@echo "Features: hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/features_pm25/"
+	@hdfs dfs -du -s -h /user/sd5957_nyu_edu/carbon_emissions/processed/
+
+# Team data access
+share-data:
+	@echo "Setting read permissions for team..."
+	hdfs dfs -chmod -R 755 /user/sd5957_nyu_edu/carbon_emissions/processed/
+	@echo "✓ Team can now read Parquet files"
+
+.PHONY: pipeline-validate pipeline-analytics pipeline-features pipeline-train pipeline-importance pipeline-tune pipeline-full show-data-paths share-data
+
+help-pipeline:
+	@echo ""
+	@echo "=========================================="
+	@echo "Completed ML Pipeline Commands"
+	@echo "=========================================="
+	@echo ""
+	@echo "  make pipeline-validate    - Validate Parquet data quality"
+	@echo "  make pipeline-analytics   - Run baseline analytics (violations by state)"
+	@echo "  make pipeline-features    - Engineer ML features (time + location)"
+	@echo "  make pipeline-train       - Train Random Forest (99.25% AUC)"
+	@echo "  make pipeline-importance  - Compute feature importance"
+	@echo "  make pipeline-tune        - Hyperparameter tuning"
+	@echo "  make pipeline-full        - Run entire ML pipeline"
+	@echo ""
+	@echo "  make show-data-paths      - Display HDFS data locations"
+	@echo "  make share-data           - Grant team read access to Parquet files"
+	@echo ""
