@@ -31,6 +31,7 @@ help:
 	@echo "  make format          - Format code with black"
 	@echo "  make clean           - Remove generated files"
 	@echo ""
+	@echo "  make batch-analytics  - Run batch state-level analytics (Anshi Shah)"
 
 setup:
 	@echo "Creating project structure..."
@@ -225,3 +226,15 @@ help-pipeline:
 	@echo "  make show-data-paths      - Display HDFS data locations"
 	@echo "  make share-data           - Grant team read access to Parquet files"
 	@echo ""
+
+
+# ==========================================
+# Batch Processing (Anshi)
+# ==========================================
+
+batch-analytics:
+	@echo "🚀 Running Batch Analytics (State-Level Aggregations)..."
+	source venv/bin/activate && \
+	python3 scripts/batch_state_analytics.py && \
+	deactivate
+	@echo "✅ Batch analytics complete. Logs available at logs/session_batch_analytics.md"
