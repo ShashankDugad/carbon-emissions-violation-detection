@@ -48,3 +48,9 @@ derby.log
 htmlcov/
 .coverage
 .pytest_cache/
+awscliv2.zip
+temp/*.zip
+aws/
+awscliv2.zip
+temp/*.zip
+aws/
