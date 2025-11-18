@@ -1,0 +1,34 @@
+# Batch Processing Configuration
+
+spark:
+  driver_memory: "8g"
+  executor_memory: "12g"
+  executor_cores: 4
+  shuffle_partitions: 200
+  adaptive_enabled: true
+
+paths:
+  input: "hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/epa_parquet"
+  output_base: "hdfs:///user/sd5957_nyu_edu/carbon_emissions/batch"
+
+filters:
+  pm25_threshold: 35.0
+  ozone_threshold: 0.070
+  min_sample_count: 1000
+
+jobs:
+  state_aggregations:
+    output: "monthly_state_avg"
+    partitions: ["year_partition", "State Name"]
+  
+  violations:
+    output: "violations_by_state"
+    partitions: ["year_partition"]
+  
+  top_counties:
+    output: "top_counties"
+    limit: 10
+  
+  seasonal:
+    output: "seasonal_trends"
+    partitions: ["year_partition"]

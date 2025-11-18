@@ -8,6 +8,7 @@ NOAA_BASE := https://www.ncei.noaa.gov/data/local-climatological-data/access
 
 help:
 	@echo "  make help-pipeline   - Show ML pipeline commands"
+	@echo "  make help-batch      - Show batch processing commands"
 	@echo "=========================================="
 	@echo "Carbon Emissions Detection - Make Commands"
 	@echo "=========================================="
@@ -224,4 +225,49 @@ help-pipeline:
 	@echo ""
 	@echo "  make show-data-paths      - Display HDFS data locations"
 	@echo "  make share-data           - Grant team read access to Parquet files"
+	@echo ""
+
+# Batch Processing Targets (Anshi's work)
+batch-state-agg:
+	@echo "Running state aggregations..."
+	spark-submit --driver-memory 8g --executor-memory 12g scripts/batch_state_aggregations.py
+
+batch-top-counties:
+	@echo "Finding top polluted counties..."
+	spark-submit scripts/batch_top_counties.py
+
+batch-seasonal:
+	@echo "Analyzing seasonal trends..."
+	spark-submit scripts/batch_seasonal_trends.py
+
+batch-yoy:
+	@echo "Computing year-over-year changes..."
+	spark-submit scripts/batch_yoy_comparison.py
+
+batch-optimize:
+	@echo "Running optimization experiments..."
+	spark-submit --driver-memory 8g scripts/batch_optimization_comparison.py
+
+batch-test:
+	@echo "Running batch unit tests..."
+	pytest tests/test_batch_transformations.py -v
+
+batch-all: batch-state-agg batch-top-counties batch-seasonal batch-yoy
+	@echo "✓ All batch jobs complete"
+
+.PHONY: batch-state-agg batch-top-counties batch-seasonal batch-yoy batch-optimize batch-test batch-all
+
+help-batch:
+	@echo ""
+	@echo "=========================================="
+	@echo "Batch Processing Commands (Anshi's work)"
+	@echo "=========================================="
+	@echo ""
+	@echo "  make batch-state-agg     - State-level monthly aggregations"
+	@echo "  make batch-top-counties  - Top 10 polluted counties"
+	@echo "  make batch-seasonal      - Seasonal PM2.5 trends"
+	@echo "  make batch-yoy           - Year-over-year comparisons"
+	@echo "  make batch-optimize      - Performance optimization tests"
+	@echo "  make batch-test          - Run unit tests"
+	@echo "  make batch-all           - Run all batch jobs"
 	@echo ""
