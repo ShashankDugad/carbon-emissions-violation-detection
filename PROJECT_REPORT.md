@@ -916,6 +916,28 @@ This project provides a **production-ready foundation** for real-time air qualit
 
 ---
 
+## 16. Code Execution Instructions
+
+This section provides step-by-step instructions to reproduce all results presented in this report. The complete codebase is available on GitHub with automated execution via Makefile targets.
+
+### 16.1 Prerequisites
+
+**Required Software:**
+- Apache Spark 3.5.3
+- Python 3.9 or higher
+- Access to NYU DataProc cluster (or any Spark cluster with HDFS)
+- Git for repository cloning
+
+**Required Resources:**
+- Minimum 16 GB RAM for local Spark driver
+- 500 GB HDFS storage quota
+- Network access to EPA AQS API and AWS S3 (for data downloads)
+
+**Python Dependencies:**
+```bash
+
+---
+
 ## Appendix
 
 ### A. HDFS Data Locations
