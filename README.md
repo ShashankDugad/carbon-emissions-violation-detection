@@ -73,6 +73,53 @@ carbon-emissions-violation-detection/
 └── README.md
 ```
 
+
+## How to Run This Project (Detailed Instructions)
+
+### Prerequisites
+- Apache Spark 3.5.3, Python 3.9+
+- Access to NYU DataProc cluster or any Spark cluster with HDFS
+
+### Setup
+```bash
+# Clone repository
+git clone https://github.com/ShashankDugad/carbon-emissions-violation-detection.git
+cd carbon-emissions-violation-detection
+
+# View all available commands
+make help
+```
+
+### Run Complete Pipeline
+```bash
+# Full ML pipeline (validation → analytics → features → training → importance)
+make pipeline-full
+# Duration: ~60 minutes
+```
+
+### Run Individual Components
+```bash
+make pipeline-validate     # Validate Parquet data (2 min)
+make pipeline-features     # Feature engineering (10 min)
+make pipeline-train        # Train Random Forest (36 min)
+make batch-all             # Run all batch analytics
+```
+
+### Use Existing Data (Recommended)
+```python
+# Access pre-processed Parquet files directly
+spark.read.parquet("hdfs:///user/sd5957_nyu_edu/carbon_emissions/processed/features_pm25")
+```
+
+### Troubleshooting
+- **Out of memory?** Increase `--executor-memory` in spark-submit commands
+- **HDFS permission denied?** Run `hdfs dfs -chmod 755 /user/sd5957_nyu_edu/carbon_emissions/`
+- **Full documentation:** See [PROJECT_REPORT.md](PROJECT_REPORT.md) Section 16
+
+---
+
+
+
 ## Quick Start
 
 ### 1. Data Access (HDFS)
